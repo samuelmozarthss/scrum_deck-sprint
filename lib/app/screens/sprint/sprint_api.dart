@@ -52,10 +52,11 @@ class SprintApi {
         body: item.toRawJsonWithoutId());
     print(response);
     print(item.toRawJsonWithoutId());
-    if(response.statusCode >= 200 && response.statusCode < 300) {
-      return 'deu, carai';
+    if (response.statusCode >= 200 && response.statusCode < 300) {
+      return 'Sprint cadastrada com sucesso!';
     } else {
-      throw Exception('Erro ao inserir sprint');
+      throw Exception(
+          'Erro ao tentar salvar a sprint. StatusCode: ${response.statusCode}');
     }
 
   }
