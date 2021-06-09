@@ -49,7 +49,45 @@ class SprintWidget extends StatelessWidget {
                               icon: Icon(Icons.edit)
                           ),
                           IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                {
+                                  showDialog(
+                                      context: context,
+                                      builder: (ctx) => AlertDialog(
+                                        title: Text('Deseja excluir esta Sprint?'),
+                                        content: Text('Isso não poderá ser desfeito'),
+                                        actions: [
+                                          TextButton(
+                                              onPressed: () => Navigator.of(context).pop(false),
+                                              child: Text('Não')
+                                          ),
+                                          TextButton(
+                                              onPressed: () => Navigator.of(context).pop(true),
+                                              child: Text('Sim')
+                                          ),
+                                        ],
+                                      )
+                                  ).then((confirmed) => {
+                                    if(confirmed) {
+                                      _bloc.doDelete(sprint.id).then(
+                                              (_) {
+                                            ScaffoldMessenger.of(context).showSnackBar(
+                                                SnackBar(content: Text('Apagado!'))
+                                            );
+                                            _bloc.doFetch();
+                                          }).catchError(
+                                              (_) {
+                                            ScaffoldMessenger.of(context).showSnackBar(
+                                                SnackBar(
+                                                    content: Text('BipBup...Error, tente novamente!', style: TextStyle(color: Colors.red),)
+                                                )
+                                            );
+                                          }
+                                      )
+                                    }
+                                  });
+                                }
+                              },
                               color: Colors.red,
                               icon: Icon(Icons.delete)
                           )

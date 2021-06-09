@@ -37,6 +37,14 @@ class SprintBloc extends BlocBase {
     print(sprint);
   }
 
+  doUpdate(sprint) async {
+
+  }
+
+  doDelete(sprint) async {
+
+  }
+
   @override
   void dispose() {
     _sprintFetcher.close();

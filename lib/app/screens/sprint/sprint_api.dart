@@ -60,4 +60,16 @@ class SprintApi {
     }
 
   }
+
+  Future deleteSprint(int sprintId) async {
+    final response = await _client.delete(Uri.parse('${Constants.API_BASE_URL}/sprint/$sprintId'));
+    print(response.body);
+    if(response.statusCode >= 200 && response.statusCode < 300) {
+      return true;
+    } else {
+      throw Exception('Erro ao deletar sprint');
+    }
+  }
+
+
 }
